@@ -1,0 +1,26 @@
+plugins {
+    id 'java'
+    id "groovy"
+}
+
+group 'pl.javahello'
+version '0.0.1-SNAPSHOT'
+
+sourceCompatibility = 11
+
+repositories {
+    mavenCentral()
+    maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
+}
+
+ext {
+    mapstructVersion = "1.3.0.Final"
+    lombokVersion = "1.18.0"
+}
+
+dependencies {
+    compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.8.1'
+    compile group: 'org.jooq', name: 'joor', version: '0.9.10'
+    compile group: 'com.google.auto.service', name: 'auto-service', version: '1.0-rc5'
+    annotationProcessor group: 'com.google.auto.service', name: 'auto-service', version: '1.0-rc5'
+}
