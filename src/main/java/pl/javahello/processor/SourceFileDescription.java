@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Stream;
 import javax.annotation.processing.ProcessingEnvironment;
-import javax.lang.model.element.AnnotationMirror;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.ElementKind;
 import javax.lang.model.element.PackageElement;
@@ -14,6 +13,7 @@ import javax.lang.model.element.TypeElement;
 import javax.lang.model.type.DeclaredType;
 import javax.lang.model.type.TypeMirror;
 import pl.javahello.DTO;
+import pl.javahello.common.AnnotationTypeUtils;
 import pl.javahello.common.CollectionTypeUtils;
 import pl.javahello.common.TypeUtils;
 
@@ -81,17 +81,7 @@ class SourceFileDescription {
   }
 
   public boolean isEntity() {
-    return hasAnnotation(element, "javax.persistence.Entity");
-  }
-
-  private boolean hasAnnotation(Element element, String annotationName) {
-    for (AnnotationMirror annotation : element.getAnnotationMirrors()) {
-      String annotationValue = annotation.toString();
-      if (annotationValue.contains(annotationName)) {
-        return true;
-      }
-    }
-    return false;
+    return AnnotationTypeUtils.hasAnnotation(element, "javax.persistence.Entity");
   }
 
   List<Element> getEntityWithOwnMappers(ProcessingEnvironment processingEnvironment) {
@@ -107,8 +97,8 @@ class SourceFileDescription {
                                                                              processingEnvironment)
                             : processingEnvironment.getTypeUtils().asElement(field.asType());
 
-        if (hasAnnotation(fieldType, "pl.javahello.RemoteEntity") ||
-            hasAnnotation(fieldType, "pl.javahello.DTO")) {
+        if (AnnotationTypeUtils.hasAnnotation(fieldType, "pl.javahello.RemoteEntity") ||
+            AnnotationTypeUtils.hasAnnotation(fieldType, "pl.javahello.DTO")) {
             entities.add(fieldType);
         }
     }

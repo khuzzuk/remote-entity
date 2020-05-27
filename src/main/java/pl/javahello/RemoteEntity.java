@@ -8,4 +8,11 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.SOURCE)
 @Target(ElementType.TYPE)
 public @interface RemoteEntity {
+  String requestMapping() default "";
+
+  @Retention(RetentionPolicy.SOURCE)
+  @Target(ElementType.TYPE)
+  @interface SecuredService {
+    String role() default "";
+  }
 }

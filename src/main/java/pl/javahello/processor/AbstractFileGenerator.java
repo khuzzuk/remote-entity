@@ -106,4 +106,11 @@ abstract class AbstractFileGenerator {
     printWriter.println();
   }
 
+  void printImports(PrintWriter printWriter, Iterable<String> imports) {
+    for (String importPackage : imports) {
+      printWriter.println(String.format("import %s;", importPackage));
+    }
+    printWriter.println();
+  }
+
 }
