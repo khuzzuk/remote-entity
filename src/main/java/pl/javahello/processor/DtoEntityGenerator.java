@@ -13,10 +13,10 @@ class DtoEntityGenerator extends DtoGenerator {
 
     @Override
     void writeClassDeclaration(PrintWriter writer) {
-        String extender = "pl.khuzzuk.remote.BaseDTO";
+        String extender = "pl.javahello.BaseDTO";
         List<? extends TypeMirror> directSupertypes = processingEnvironment.getTypeUtils().directSupertypes(sourceFileDescription.getElement().asType());
         if (directSupertypes.stream().anyMatch(t -> t.toString().endsWith("ListableEntity"))) {
-            extender = "pl.khuzzuk.remote.ListableDTO";
+            extender = "pl.javahello.ListableDTO";
         }
 
         writer.println(String.format("public class %sDTO extends %s {",

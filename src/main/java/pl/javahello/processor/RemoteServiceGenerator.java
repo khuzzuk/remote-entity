@@ -29,8 +29,8 @@ public class RemoteServiceGenerator extends AbstractFileGenerator {
                 "org.springframework.web.bind.annotation.RequestBody",
                 "org.springframework.web.bind.annotation.RequestMapping",
                 "org.springframework.web.bind.annotation.RestController",
-                "pl.khuzzuk.remote.RemoteService",
-                "pl.khuzzuk.remote.Adapter",
+                "pl.javahello.RemoteService",
+                "pl.javahello.Adapter",
                 "javax.validation.Valid",
                 "java.util.List");
 

@@ -33,7 +33,7 @@ class AdapterToEntityGenerator extends AbstractAdapterGenerator {
                  "org.mapstruct.ReportingPolicy",
                  "org.mapstruct.Mapping",
                  "org.mapstruct.NullValueCheckStrategy",
-                 "pl.khuzzuk.remote.Adapter");
+                 "pl.javahello.Adapter");
 
     String sourceSimpleName = sourceFileDescription.getElement().getSimpleName().toString();
 

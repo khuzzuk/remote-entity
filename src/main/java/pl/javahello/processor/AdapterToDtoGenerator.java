@@ -27,7 +27,7 @@ class AdapterToDtoGenerator extends AbstractAdapterGenerator {
     printImports(writer,
                  "org.mapstruct.Mapper",
                  "org.mapstruct.ReportingPolicy",
-                 "pl.khuzzuk.remote.Adapter");
+                 "pl.javahello.Adapter");
 
     String sourceSimpleName = sourceFileDescription.getElement().getSimpleName().toString();
     writer.println(getMapperDeclaration("DTOAdapter"));

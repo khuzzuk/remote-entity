@@ -107,8 +107,8 @@ class SourceFileDescription {
                                                                              processingEnvironment)
                             : processingEnvironment.getTypeUtils().asElement(field.asType());
 
-        if (hasAnnotation(fieldType, "pl.khuzzuk.remote.RemoteEntity") ||
-            hasAnnotation(fieldType, "pl.khuzzuk.remote.DTO")) {
+        if (hasAnnotation(fieldType, "pl.javahello.RemoteEntity") ||
+            hasAnnotation(fieldType, "pl.javahello.DTO")) {
             entities.add(fieldType);
         }
     }

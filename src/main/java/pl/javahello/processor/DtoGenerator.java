@@ -55,11 +55,11 @@ class DtoGenerator extends AbstractFileGenerator {
                 .append("DTO");
 
         if (sourceFileDescription.hasField("uuid")) {
-            classDeclaration.append(" extends pl.khuzzuk.remote.ListableDTO");
+            classDeclaration.append(" extends pl.javahello.ListableDTO");
             excludedFields.add("uuid");
             excludedFields.add("id");
         } else if (sourceFileDescription.hasField("id")) {
-            classDeclaration.append(" extends pl.khuzzuk.remote.BaseDTO");
+            classDeclaration.append(" extends pl.javahello.BaseDTO");
             excludedFields.add("id");
         }
 
