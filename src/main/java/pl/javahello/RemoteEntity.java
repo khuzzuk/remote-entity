@@ -14,5 +14,6 @@ public @interface RemoteEntity {
   @Target(ElementType.TYPE)
   @interface SecuredService {
     String role() default "";
+    boolean allowRead() default false;
   }
 }

@@ -38,4 +38,8 @@ public class AnnotationTypeUtils {
                      .map(Entry::getValue)
                      .map(Object::toString);
   }
+
+  public static Optional<Boolean> getBooleanValue(AnnotationMirror annotation, String name) {
+    return getStringValue(annotation, name).map(Boolean::valueOf);
+  }
 }
