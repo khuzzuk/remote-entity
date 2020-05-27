@@ -4,7 +4,7 @@
 
   <groupId>pl.javahello</groupId>
   <artifactId>remote-entity</artifactId>
-  <version>0.0.3</version>
+  <version>0.0.4-SNAPSHOT</version>
   <name>Remote Entity for Spring Data JPA</name>
   <description>Remote entity annotation processor generating code for Spring Data JPA web apps.
   </description>
@@ -152,7 +152,7 @@
     <connection>scm:git:git://github.com/khuzzuk/remote-entity.git</connection>
     <developerConnection>scm:git:git@github.com:khuzzuk/remote-entity.git</developerConnection>
     <url>https://github.com/khuzzuk/remote-entity</url>
-    <tag>remote-entity-0.0.3</tag>
+    <tag>HEAD</tag>
   </scm>
 
   <profiles>
