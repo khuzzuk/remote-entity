@@ -14,7 +14,7 @@ import javax.lang.model.element.TypeElement;
 /**
  * Processor for {@link pl.javahello.DTO} annotation.
  */
-@SupportedAnnotationTypes({"pl.khuzzuk.remote.DTO"})
+@SupportedAnnotationTypes({"pl.javahello.DTO"})
 @SupportedSourceVersion(SourceVersion.RELEASE_11)
 @AutoService(Processor.class)
 public class DtoProcessor extends AbstractProcessor {

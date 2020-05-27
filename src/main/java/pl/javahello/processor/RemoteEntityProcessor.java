@@ -15,7 +15,7 @@ import javax.lang.model.element.TypeElement;
 /**
  * Processor for {@link pl.javahello.RemoteEntity} annotation.
  */
-@SupportedAnnotationTypes({"pl.khuzzuk.remote.RemoteEntity"})
+@SupportedAnnotationTypes({"pl.javahello.RemoteEntity"})
 @SupportedSourceVersion(SourceVersion.RELEASE_11)
 @AutoService(Processor.class)
 public class RemoteEntityProcessor extends AbstractProcessor {
