@@ -6,7 +6,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Allows dto class generation with corresponding {@link Adapter}s.
+ * Mark class to generate DTO with corresponding {@link Adapter}s.
  */
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.SOURCE)

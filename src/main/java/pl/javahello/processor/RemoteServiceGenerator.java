@@ -14,6 +14,7 @@ public class RemoteServiceGenerator extends AbstractFileGenerator {
   private static final String REMOTE_ENTITY_ANNOTATION = "pl.javahello.RemoteEntity";
   private static final String SECURED_ANNOTATION =
       "org.springframework.security.access.annotation.Secured";
+  private static final String TRANSACTIONAL_ANNOTATION = "javax.transaction.Transactional";
   private static final String SECURED_SERVICE_ANNOTATION =
       "pl.javahello.RemoteEntity.SecuredService";
   private static final Set<String> BASIC_IMPORTS = Set.of(
@@ -50,9 +51,13 @@ public class RemoteServiceGenerator extends AbstractFileGenerator {
     AnnotationMirror remoteAnnotation =
         AnnotationTypeUtils.getAnnotation(sourceFileDescription.getElement(),
                                           REMOTE_ENTITY_ANNOTATION);
+    Optional<Boolean> transactional =
+        AnnotationTypeUtils.getBooleanValue(remoteAnnotation, "transactional")
+                           .filter(Boolean::booleanValue);
 
     printPackage(writer, sourceFileDescription.getPackageElement().getQualifiedName().toString());
     printImports(writer, BASIC_IMPORTS);
+    transactional.ifPresent(any -> printImports(writer, TRANSACTIONAL_ANNOTATION));
 
     Optional<AnnotationMirror> securedAnnotation;
     String securedAnnotationText;
@@ -67,7 +72,10 @@ public class RemoteServiceGenerator extends AbstractFileGenerator {
       securedAnnotationText = String.format("  @Secured(%s)",
                                             AnnotationTypeUtils.getStringValue(
                                                 securedAnnotationMirror,
-                                                "role").orElse("\"" + beanName + "\""));
+                                                "role")
+                                                               .orElse("\"ROLE_" +
+                                                                       beanName.toUpperCase() +
+                                                                       "\""));
     } else {
       securedAnnotation = Optional.empty();
       securedAnnotationText = "";
@@ -78,6 +86,7 @@ public class RemoteServiceGenerator extends AbstractFileGenerator {
                                  AnnotationTypeUtils.getStringValue(remoteAnnotation,
                                                                     "requestMapping")
                                                     .orElse("\"" + beanName + "\"")));
+    transactional.ifPresent(any -> writer.println("@Transactional"));
 
     writer.println(String.format("public class %sService implements RemoteService<%sDTO> {", entityName, entityName));
 
