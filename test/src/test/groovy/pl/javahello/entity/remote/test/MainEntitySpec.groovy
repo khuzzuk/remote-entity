@@ -1,5 +1,6 @@
 package pl.javahello.entity.remote.test
 
+import org.springframework.stereotype.Component
 import spock.lang.Specification
 
 import java.lang.reflect.Field
@@ -9,15 +10,19 @@ class MainEntitySpec extends Specification {
     def 'check generated classes'() {
         given:
         Class adapterToEntityClass = Class.forName('pl.javahello.entity.remote.test.MainEntityAdapter')
+        Class adapterToEntityImplClass = Class.forName('pl.javahello.entity.remote.test.MainEntityAdapterImpl')
         Class dtoClass = Class.forName('pl.javahello.entity.remote.test.MainEntityDTO')
         Class adapterToDtoClass = Class.forName('pl.javahello.entity.remote.test.MainEntityDTOAdapter')
+        Class adapterToDtoImplClass = Class.forName('pl.javahello.entity.remote.test.MainEntityDTOAdapterImpl')
         Class repoClass = Class.forName('pl.javahello.entity.remote.test.MainEntityRepo')
         Class serviceClass = Class.forName('pl.javahello.entity.remote.test.MainEntityService')
 
         expect:
         adapterToEntityClass
+        adapterToEntityImplClass
         dtoClass
         adapterToDtoClass
+        adapterToEntityImplClass
         repoClass
         serviceClass
     }
@@ -48,5 +53,15 @@ class MainEntitySpec extends Specification {
                 'stringInheritedField',
                 'internalInheritedField',
         ] as Set
+    }
+
+    def 'check adapter to dto'() {
+        given:
+        Class adapter = Class.forName('pl.javahello.entity.remote.test.MainEntityDTOAdapterImpl')
+
+        expect:
+        adapter.getAnnotation(Component.class)
+        adapter.getDeclaredField('internalTypeDTOAdapter')
+        adapter.getDeclaredField('internalDataTransferObjectDTOAdapter')
     }
 }

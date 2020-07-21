@@ -18,27 +18,23 @@ import javax.lang.model.element.TypeElement;
 @SupportedSourceVersion(SourceVersion.RELEASE_11)
 @AutoService(Processor.class)
 public class DtoProcessor extends AbstractProcessor {
-    @Override
-    public boolean process(Set<? extends TypeElement> annotations, RoundEnvironment roundEnv) {
-        for (TypeElement annotation : annotations) {
-            Set<? extends Element> elements = roundEnv.getElementsAnnotatedWith(annotation);
 
-            for (Element element : elements) {
-                SourceFileDescription sourceFileDescription = SourceFileDescription.create(element, processingEnv);
+  @Override
+  public boolean process(Set<? extends TypeElement> annotations, RoundEnvironment roundEnv) {
+    for (TypeElement annotation : annotations) {
+      Set<? extends Element> elements = roundEnv.getElementsAnnotatedWith(annotation);
 
-                DtoGenerator dtoGenerator = new DtoGenerator(roundEnv, sourceFileDescription, processingEnv);
-                dtoGenerator.writeFile();
+      for (Element element : elements) {
+        SourceFileDescription sourceFileDescription =
+            SourceFileDescription.create(element, processingEnv);
 
-            AdapterToDtoGenerator adapterToDtoGenerator = new AdapterToDtoGenerator(roundEnv, sourceFileDescription, processingEnv);
-            adapterToDtoGenerator.writeFile();
-
-            AdapterToEntityGenerator adapterToEntityGenerator = new AdapterToEntityGenerator(roundEnv, sourceFileDescription, processingEnv);
-            adapterToEntityGenerator.writeFile();
-            }
-            return !elements.isEmpty();
-        }
-
-        return false;
-
+        new DtoGenerator(roundEnv, sourceFileDescription, processingEnv).writeFile();
+        new AdapterToDtoGenerator(roundEnv, sourceFileDescription, processingEnv).writeFile();
+        new AdapterToEntityGenerator(roundEnv, sourceFileDescription, processingEnv).writeFile();
+      }
+      return !elements.isEmpty();
     }
+
+    return false;
+  }
 }
