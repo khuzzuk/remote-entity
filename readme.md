@@ -8,7 +8,7 @@ Having entity class:
 @Getter
 @Setter
 @Entity
-@RemoteEntity
+@RemoteEntity(transactional = true)
 public class MyClass {
 
     @Id
@@ -56,6 +56,7 @@ public interface MyClassRepo extends JpaRepository<MyClass, Long> {}
 ```java
 @RestController
 @RequestMapping("myClass")
+@Transactional
 public class MyClassService implements RemoteService<MyClassDTO> {
   private myClassRepo myClassRepo;
   private Adapter<MyClassDTO, MyClass> myClassAdapter;
