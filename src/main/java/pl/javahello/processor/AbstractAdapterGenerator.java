@@ -3,16 +3,14 @@ package pl.javahello.processor;
 import java.util.List;
 import java.util.stream.Collectors;
 import javax.annotation.processing.ProcessingEnvironment;
-import javax.annotation.processing.RoundEnvironment;
 import javax.lang.model.element.Element;
 import javax.lang.model.type.TypeMirror;
 
 public abstract class AbstractAdapterGenerator extends AbstractFileGenerator {
 
-  public AbstractAdapterGenerator(RoundEnvironment roundEnv,
-                                  SourceFileDescription sourceFileDescription,
+  public AbstractAdapterGenerator(SourceFileDescription sourceFileDescription,
                                   ProcessingEnvironment processingEnvironment) {
-    super(roundEnv, sourceFileDescription, processingEnvironment);
+    super(sourceFileDescription, processingEnvironment);
   }
 
   String getMapperDeclaration(String adapterSuffix) {

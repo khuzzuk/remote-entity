@@ -31,11 +31,11 @@ public class RemoteEntityProcessor extends AbstractProcessor {
         SourceFileDescription sourceFileDescription =
             SourceFileDescription.create(element, processingEnv);
 
-        new JpaRepoGenerator(roundEnv, sourceFileDescription, processingEnv).writeFile();
-        new DtoGenerator(roundEnv, sourceFileDescription, processingEnv).writeFile();
-        new AdapterToDtoGenerator(roundEnv, sourceFileDescription, processingEnv).writeFile();
-        new AdapterToEntityGenerator(roundEnv, sourceFileDescription, processingEnv).writeFile();
-        new RemoteServiceGenerator(roundEnv, sourceFileDescription, processingEnv).writeFile();
+        new JpaRepoGenerator(sourceFileDescription, processingEnv).writeFile();
+        new DtoGenerator(sourceFileDescription, processingEnv).writeFile();
+        new AdapterToDtoGenerator(sourceFileDescription, processingEnv).writeFile();
+        new AdapterToEntityGenerator(sourceFileDescription, processingEnv).writeFile();
+        new RemoteServiceGenerator(sourceFileDescription, processingEnv).writeFile();
       }
 
       return !elements.isEmpty();

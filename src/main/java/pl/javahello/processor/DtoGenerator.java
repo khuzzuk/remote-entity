@@ -5,7 +5,6 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.regex.Pattern;
 import javax.annotation.processing.ProcessingEnvironment;
-import javax.annotation.processing.RoundEnvironment;
 import javax.lang.model.element.AnnotationMirror;
 import javax.lang.model.element.Element;
 import javax.lang.model.type.TypeMirror;
@@ -17,8 +16,8 @@ import pl.javahello.common.CollectionTypeUtils;
 class DtoGenerator extends AbstractFileGenerator {
     private final Set<String> excludedFields = new HashSet<>();
 
-    DtoGenerator(RoundEnvironment roundEnv, SourceFileDescription sourceFileDescription, ProcessingEnvironment processingEnvironment) {
-        super(roundEnv, sourceFileDescription, processingEnvironment);
+    DtoGenerator(SourceFileDescription sourceFileDescription, ProcessingEnvironment processingEnvironment) {
+        super(sourceFileDescription, processingEnvironment);
     }
 
     @Override
@@ -110,15 +109,9 @@ class DtoGenerator extends AbstractFileGenerator {
             }
         }
 
-        writer.println(String.format("private %s %s;", type, fieldName));
-        writer.println();
-
-        writer.println(String.format("public %s get%s() { return this.%s; }",
-                type, methodSuffix, fieldName));
-        writer.println();
-
-        writer.println(String.format("public void set%s(%s field) { this.%s = field; }",
-                methodSuffix, type, fieldName));
+        writer.println(String.format("  private %s %s;", type, fieldName));
+        writer.println(String.format("  public %s get%s() { return this.%s; }", type, methodSuffix, fieldName));
+        writer.println(String.format("  public void set%s(%s field) { this.%s = field; }", methodSuffix, type, fieldName));
         writer.println();
 
     }

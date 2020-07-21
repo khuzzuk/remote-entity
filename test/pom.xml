@@ -36,7 +36,7 @@
     <dependency>
       <groupId>pl.javahello</groupId>
       <artifactId>remote-entity</artifactId>
-      <version>0.0.5</version>
+      <version>0.0.6-SNAPSHOT</version>
     </dependency>
 
     <dependency>

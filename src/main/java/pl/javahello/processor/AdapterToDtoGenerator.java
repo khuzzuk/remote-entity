@@ -2,14 +2,12 @@ package pl.javahello.processor;
 
 import java.io.PrintWriter;
 import javax.annotation.processing.ProcessingEnvironment;
-import javax.annotation.processing.RoundEnvironment;
 
 class AdapterToDtoGenerator extends AbstractAdapterGenerator {
 
-  AdapterToDtoGenerator(RoundEnvironment roundEnv,
-                        SourceFileDescription sourceFileDescription,
+  AdapterToDtoGenerator(SourceFileDescription sourceFileDescription,
                         ProcessingEnvironment processingEnvironment) {
-    super(roundEnv, sourceFileDescription, processingEnvironment);
+    super(sourceFileDescription, processingEnvironment);
   }
 
   @Override

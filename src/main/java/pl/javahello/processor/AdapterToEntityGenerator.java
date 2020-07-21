@@ -5,15 +5,13 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 import javax.annotation.processing.ProcessingEnvironment;
-import javax.annotation.processing.RoundEnvironment;
 import javax.lang.model.element.Element;
 
 class AdapterToEntityGenerator extends AbstractAdapterGenerator {
 
-  AdapterToEntityGenerator(RoundEnvironment roundEnv,
-                           SourceFileDescription sourceFileDescription,
+  AdapterToEntityGenerator(SourceFileDescription sourceFileDescription,
                            ProcessingEnvironment processingEnvironment) {
-    super(roundEnv, sourceFileDescription, processingEnvironment);
+    super(sourceFileDescription, processingEnvironment);
   }
 
   @Override

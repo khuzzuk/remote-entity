@@ -4,7 +4,6 @@ import java.io.PrintWriter;
 import java.util.Optional;
 import java.util.Set;
 import javax.annotation.processing.ProcessingEnvironment;
-import javax.annotation.processing.RoundEnvironment;
 import javax.lang.model.element.AnnotationMirror;
 import org.apache.commons.lang3.StringUtils;
 import pl.javahello.common.AnnotationTypeUtils;
@@ -30,10 +29,9 @@ public class RemoteServiceGenerator extends AbstractFileGenerator {
       "java.util.List");
   private static final Set<String> SECURITY_IMPORT = Set.of(SECURED_ANNOTATION);
 
-  RemoteServiceGenerator(RoundEnvironment roundEnv,
-                         SourceFileDescription sourceFileDescription,
+  RemoteServiceGenerator(SourceFileDescription sourceFileDescription,
                          ProcessingEnvironment processingEnvironment) {
-    super(roundEnv, sourceFileDescription, processingEnvironment);
+    super(sourceFileDescription, processingEnvironment);
   }
 
   @Override

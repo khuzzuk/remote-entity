@@ -5,7 +5,7 @@ import lombok.Data;
 @Data
 public class BaseClass {
   private byte byteInheritedField;
-//  private short shortInheritedField;
+  private short shortInheritedField;
   private int intInheritedField;
   private long longInheritedField;
   private float floatInheritedField;

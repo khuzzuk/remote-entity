@@ -15,27 +15,31 @@ import javax.lang.model.type.TypeKind;
 
 abstract class AbstractFileGenerator {
 
-  private static final Set<String> DEFAULT_TYPES = Set.of(int.class.getCanonicalName(),
+  private static final Set<String> DEFAULT_TYPES = Set.of(" int",
                                                           int[].class.getCanonicalName(),
                                                           Integer.class.getCanonicalName(),
                                                           Integer[].class.getCanonicalName(),
-                                                          long.class.getCanonicalName(),
+                                                          " long",
                                                           long[].class.getCanonicalName(),
                                                           Long.class.getCanonicalName(),
                                                           Long[].class.getCanonicalName(),
-                                                          float.class.getCanonicalName(),
+                                                          " float",
                                                           float[].class.getCanonicalName(),
                                                           Float.class.getCanonicalName(),
                                                           Float[].class.getCanonicalName(),
-                                                          double.class.getCanonicalName(),
+                                                          " double",
                                                           double[].class.getCanonicalName(),
                                                           Double.class.getCanonicalName(),
                                                           Double[].class.getCanonicalName(),
-                                                          boolean.class.getCanonicalName(),
+                                                          " boolean",
                                                           boolean[].class.getCanonicalName(),
                                                           Boolean.class.getCanonicalName(),
                                                           Boolean[].class.getCanonicalName(),
-                                                          byte.class.getCanonicalName(),
+                                                          " short",
+                                                          short[].class.getCanonicalName(),
+                                                          Short.class.getCanonicalName(),
+                                                          Short[].class.getCanonicalName(),
+                                                          " byte",
                                                           byte[].class.getCanonicalName(),
                                                           Byte.class.getCanonicalName(),
                                                           Byte[].class.getCanonicalName(),
@@ -48,18 +52,21 @@ abstract class AbstractFileGenerator {
 
   SourceFileDescription sourceFileDescription;
   ProcessingEnvironment processingEnvironment;
-  private RoundEnvironment roundEnv;
 
-  AbstractFileGenerator(RoundEnvironment roundEnv,
-                        SourceFileDescription sourceFileDescription,
+  AbstractFileGenerator(SourceFileDescription sourceFileDescription,
                         ProcessingEnvironment processingEnvironment) {
-    this.roundEnv = roundEnv;
     this.sourceFileDescription = sourceFileDescription;
     this.processingEnvironment = processingEnvironment;
   }
 
   static boolean isEntity(Element field) {
-    if (field.asType().getKind().equals(TypeKind.DECLARED)) {
+    TypeKind fieldTypeKind = field.asType().getKind();
+
+    if (fieldTypeKind.isPrimitive()) {
+      return false;
+    }
+
+    if (fieldTypeKind == TypeKind.DECLARED) {
       DeclaredType type = (DeclaredType) field.asType();
       if (type.asElement().getKind().equals(ElementKind.ENUM)) {
         return false;

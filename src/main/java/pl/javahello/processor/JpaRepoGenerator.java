@@ -2,11 +2,10 @@ package pl.javahello.processor;
 
 import java.io.PrintWriter;
 import javax.annotation.processing.ProcessingEnvironment;
-import javax.annotation.processing.RoundEnvironment;
 
 class JpaRepoGenerator extends AbstractFileGenerator {
-    JpaRepoGenerator(RoundEnvironment roundEnv, SourceFileDescription sourceFileDescription, ProcessingEnvironment processingEnvironment) {
-        super(roundEnv, sourceFileDescription, processingEnvironment);
+    JpaRepoGenerator(SourceFileDescription sourceFileDescription, ProcessingEnvironment processingEnvironment) {
+        super(sourceFileDescription, processingEnvironment);
     }
 
     @Override

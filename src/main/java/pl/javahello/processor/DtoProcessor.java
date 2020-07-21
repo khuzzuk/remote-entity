@@ -28,9 +28,9 @@ public class DtoProcessor extends AbstractProcessor {
         SourceFileDescription sourceFileDescription =
             SourceFileDescription.create(element, processingEnv);
 
-        new DtoGenerator(roundEnv, sourceFileDescription, processingEnv).writeFile();
-        new AdapterToDtoGenerator(roundEnv, sourceFileDescription, processingEnv).writeFile();
-        new AdapterToEntityGenerator(roundEnv, sourceFileDescription, processingEnv).writeFile();
+        new DtoGenerator(sourceFileDescription, processingEnv).writeFile();
+        new AdapterToDtoGenerator(sourceFileDescription, processingEnv).writeFile();
+        new AdapterToEntityGenerator(sourceFileDescription, processingEnv).writeFile();
       }
       return !elements.isEmpty();
     }

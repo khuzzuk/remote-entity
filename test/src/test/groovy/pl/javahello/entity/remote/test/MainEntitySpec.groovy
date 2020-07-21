@@ -34,9 +34,10 @@ class MainEntitySpec extends Specification {
         Set<String> fieldNames = Arrays.stream(fields).map({ it.name }).collect(Collectors.toSet())
 
         expect:
-        fields.size() == 15
+        fields.size() == 19
         fieldNames == [
-                'byteField',//'shortField',
+                'byteField',
+                'shortField',
                 'intField',
                 'longField',
                 'floatField',
@@ -44,8 +45,11 @@ class MainEntitySpec extends Specification {
                 'stringField',
                 'internalField',
                 'internalDataTransferObjectField',
+                'nestedRemoteEntityField',
+                'typeContainsDefaultNameField',
 
-                'byteInheritedField',//'shortInheritedField',
+                'byteInheritedField',
+                'shortInheritedField',
                 'intInheritedField',
                 'longInheritedField',
                 'floatInheritedField',
@@ -63,5 +67,7 @@ class MainEntitySpec extends Specification {
         adapter.getAnnotation(Component.class)
         adapter.getDeclaredField('internalTypeDTOAdapter')
         adapter.getDeclaredField('internalDataTransferObjectDTOAdapter')
+        adapter.getDeclaredField('nestedRemoteEntityDTOAdapter')
+        adapter.getDeclaredField('typeContainsDefaultName_intDTOAdapter')
     }
 }

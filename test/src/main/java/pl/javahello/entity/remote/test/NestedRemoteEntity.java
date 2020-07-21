@@ -1,11 +1,12 @@
 package pl.javahello.entity.remote.test;
 
 import lombok.Data;
-import pl.javahello.DTO;
+import pl.javahello.RemoteEntity;
 
-@DTO
 @Data
-public class InternalDataTransferObject {
+@RemoteEntity
+public class NestedRemoteEntity {
+
   private byte byteField;
   private short shortField;
   private int intField;
@@ -13,6 +14,4 @@ public class InternalDataTransferObject {
   private float floatField;
   private double doubleField;
   private String stringField;
-
-  private InternalType internalTypeField;
 }
