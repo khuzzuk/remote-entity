@@ -2,6 +2,7 @@ package pl.javahello.entity.remote.test;
 
 import lombok.Data;
 import pl.javahello.DTO;
+import pl.javahello.entity.remote.test.MainEntity.InternalType;
 
 @DTO
 @Data

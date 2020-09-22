@@ -2,6 +2,7 @@ package pl.javahello.entity.remote.test;
 
 import javax.validation.constraints.Min;
 import lombok.Data;
+import pl.javahello.DTO;
 import pl.javahello.RemoteEntity;
 import pl.javahello.RemoteEntity.SecuredService;
 
@@ -20,4 +21,10 @@ public class MainEntity extends BaseClass {
   private InternalDataTransferObject internalDataTransferObjectField;
   private NestedRemoteEntity nestedRemoteEntityField;
   private TypeContainsDefaultName_int typeContainsDefaultNameField;
+
+  @Data
+  @DTO
+  public class InternalType {
+    private String internalTypeStringField;
+  }
 }
