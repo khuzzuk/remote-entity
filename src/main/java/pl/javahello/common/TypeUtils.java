@@ -30,4 +30,16 @@ public class TypeUtils {
     String fieldTypeDeclaration = field.asType().toString();
     return LANG_TYPES.stream().anyMatch(fieldTypeDeclaration::endsWith);
   }
+
+  public static boolean isInternalClass(Element type) {
+    return type.getEnclosingElement().getKind().isClass();
+  }
+
+  public static String enclosingClassName(Element type) {
+    return type.getEnclosingElement().getSimpleName().toString();
+  }
+
+  public static String enclosingClassPackage(Element type) {
+    return type.getEnclosingElement().getEnclosingElement().toString();
+  }
 }

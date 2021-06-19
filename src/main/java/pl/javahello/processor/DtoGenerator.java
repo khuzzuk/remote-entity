@@ -1,5 +1,8 @@
 package pl.javahello.processor;
 
+import static pl.javahello.common.TypeUtils.enclosingClassPackage;
+import static pl.javahello.common.TypeUtils.isInternalClass;
+
 import java.io.PrintWriter;
 import java.util.HashSet;
 import java.util.Set;
@@ -80,6 +83,7 @@ class DtoGenerator extends AbstractFileGenerator {
 
         String fieldName = field.getSimpleName().toString();
         String type = field.asType().toString();
+        Element fieldType = sourceFileDescription.fieldAsElement(field);
         String methodSuffix = StringUtils.capitalize(fieldName);
 
         if (CollectionTypeUtils.isMap(field)) {
@@ -103,7 +107,9 @@ class DtoGenerator extends AbstractFileGenerator {
             if (type.endsWith(">")) {
                 type = StringUtils.substringBeforeLast(type, ">") + "DTO>";
             } else {
-                type = type + "DTO";
+                type = isInternalClass(fieldType)
+                    ? enclosingClassPackage(fieldType) + "." + fieldType.getSimpleName() + "DTO"
+                    : type + "DTO";
             }
         }
 

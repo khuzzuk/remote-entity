@@ -24,6 +24,13 @@ public @interface RemoteEntity {
   boolean transactional() default false;
 
   /**
+   * Adds Stomp message publication on entity change (save, update, delete).
+   */
+  boolean stomp() default false;
+
+  String stompTopic() default "";
+
+  /**
    * Together with {@link RemoteEntity} adds @Secured annotation to Controller.
    */
   @Retention(RetentionPolicy.SOURCE)

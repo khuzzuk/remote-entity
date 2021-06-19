@@ -1,5 +1,8 @@
 package pl.javahello.processor;
 
+import static pl.javahello.common.TypeUtils.enclosingClassName;
+import static pl.javahello.common.TypeUtils.isInternalClass;
+
 import java.io.PrintWriter;
 import java.util.List;
 import java.util.Objects;
@@ -36,10 +39,12 @@ class AdapterToEntityGenerator extends AbstractAdapterGenerator {
     String sourceSimpleName = sourceFileDescription.getElement().getSimpleName().toString();
 
     writer.println(getMapperDeclaration("Adapter"));
-    writer.println(String.format("public interface %sAdapter extends Adapter<%sDTO, %s> {",
-                                 sourceSimpleName,
-                                 sourceSimpleName,
-                                 sourceSimpleName));
+    if (isInternalClass(sourceFileDescription.getElement())) {
+      String enclosingClassName = enclosingClassName(sourceFileDescription.getElement());
+      writer.println(String.format("public interface %1$sAdapter extends Adapter<%1$sDTO, %2$s.%1$s> {", sourceSimpleName, enclosingClassName));
+    } else {
+      writer.println(String.format("public interface %1$sAdapter extends Adapter<%1$sDTO, %1$s> {", sourceSimpleName));
+    }
 
     List<String> mappings = sourceFileDescription.getNullCheckRequiringFields()
                                                  .stream()

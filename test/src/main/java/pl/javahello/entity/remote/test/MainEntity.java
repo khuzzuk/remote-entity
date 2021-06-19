@@ -7,7 +7,7 @@ import pl.javahello.RemoteEntity;
 import pl.javahello.RemoteEntity.SecuredService;
 
 @Data
-@RemoteEntity(transactional = true, requestMapping = "customMapping")
+@RemoteEntity(transactional = true, requestMapping = "customMapping", stomp = true)
 @SecuredService(allowRead = true)
 public class MainEntity extends BaseClass {
   private byte byteField;
@@ -24,7 +24,7 @@ public class MainEntity extends BaseClass {
 
   @Data
   @DTO
-  public class InternalType {
+  public static class InternalType {
     private String internalTypeStringField;
   }
 }

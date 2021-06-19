@@ -1,5 +1,9 @@
 package pl.javahello.processor;
 
+import static java.lang.String.format;
+import static pl.javahello.common.TypeUtils.enclosingClassName;
+import static pl.javahello.common.TypeUtils.isInternalClass;
+
 import java.io.PrintWriter;
 import javax.annotation.processing.ProcessingEnvironment;
 
@@ -26,12 +30,15 @@ class AdapterToDtoGenerator extends AbstractAdapterGenerator {
                  "org.mapstruct.Mapper",
                  "org.mapstruct.ReportingPolicy",
                  "pl.javahello.Adapter");
+    writer.println(getMapperDeclaration("DTOAdapter"));
 
     String sourceSimpleName = sourceFileDescription.getElement().getSimpleName().toString();
-    writer.println(getMapperDeclaration("DTOAdapter"));
-    writer.println(String.format("public interface %sDTOAdapter extends Adapter<%s, %sDTO> {}",
-                                 sourceSimpleName,
-                                 sourceSimpleName,
-                                 sourceSimpleName));
+
+    if (isInternalClass(sourceFileDescription.getElement())) {
+      String enclosingClassName = enclosingClassName(sourceFileDescription.getElement());
+      writer.println(format("public interface %1$sDTOAdapter extends Adapter<%2$s.%1$s, %1$sDTO> {}", sourceSimpleName, enclosingClassName));
+    } else {
+      writer.println(format("public interface %1$sDTOAdapter extends Adapter<%1$s, %1$sDTO> {}", sourceSimpleName));
+    }
   }
 }

@@ -1,10 +1,13 @@
 package pl.javahello.processor;
 
+import static java.lang.String.format;
+import static pl.javahello.common.TypeUtils.enclosingClassPackage;
+import static pl.javahello.common.TypeUtils.isInternalClass;
+
 import java.util.List;
 import java.util.stream.Collectors;
 import javax.annotation.processing.ProcessingEnvironment;
 import javax.lang.model.element.Element;
-import javax.lang.model.type.TypeMirror;
 
 public abstract class AbstractAdapterGenerator extends AbstractFileGenerator {
 
@@ -23,12 +26,9 @@ public abstract class AbstractAdapterGenerator extends AbstractFileGenerator {
       mapperDeclaration.append(", uses={\n");
 
       String mappersToUse = entityWithOwnMappers.stream()
-                                                .map(Element::asType)
-                                                .map(TypeMirror::toString)
-                                                .map(entityTypeName -> String.format(
-                                                    "\t\t\t%s%s.class",
-                                                    entityTypeName,
-                                                    adapterSuffix))
+                                                .map(element -> isInternalClass(element)
+                                                    ? format("\t\t\t%s.%s%s.class", enclosingClassPackage(element), element.getSimpleName(), adapterSuffix)
+                                                    : format("\t\t\t%s%s.class", element.asType(), adapterSuffix))
                                                 .collect(Collectors.joining(",\n"));
       mapperDeclaration.append(mappersToUse);
 

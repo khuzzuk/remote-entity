@@ -42,4 +42,8 @@ public class AnnotationTypeUtils {
   public static Optional<Boolean> getBooleanValue(AnnotationMirror annotation, String name) {
     return getStringValue(annotation, name).map(Boolean::valueOf);
   }
+
+  public static boolean isEnabled(AnnotationMirror annotation, String name) {
+    return getBooleanValue(annotation, name).orElse(false);
+  }
 }

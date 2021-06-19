@@ -31,6 +31,7 @@ public class RemoteEntityProcessor extends AbstractProcessor {
         SourceFileDescription sourceFileDescription =
             SourceFileDescription.create(element, processingEnv);
 
+        System.out.printf("Generating classes for: %s", element.getSimpleName());
         new JpaRepoGenerator(sourceFileDescription, processingEnv).writeFile();
         new DtoGenerator(sourceFileDescription, processingEnv).writeFile();
         new AdapterToDtoGenerator(sourceFileDescription, processingEnv).writeFile();

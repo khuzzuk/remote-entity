@@ -19,49 +19,40 @@ import pl.javahello.common.TypeUtils;
 
 class SourceFileDescription {
 
+  private ProcessingEnvironment processingEnvironment;
   private Element element;
   private PackageElement packageElement;
   private List<? extends Element> members = List.of();
   private List<Element> fields = List.of();
 
-  static SourceFileDescription create(Element element,
-                                      ProcessingEnvironment processingEnvironment) {
+  static SourceFileDescription create(Element element, ProcessingEnvironment processingEnvironment) {
     SourceFileDescription sourceFileDescription = new SourceFileDescription();
+    sourceFileDescription.processingEnvironment = processingEnvironment;
     sourceFileDescription.element = element;
-    sourceFileDescription.packageElement = processingEnvironment.getElementUtils()
-        .getPackageOf(element);
-    sourceFileDescription.members = processingEnvironment.getElementUtils()
-        .getAllMembers((TypeElement) element);
+    sourceFileDescription.packageElement = processingEnvironment.getElementUtils().getPackageOf(element);
+    sourceFileDescription.members = processingEnvironment.getElementUtils().getAllMembers((TypeElement) element);
     sourceFileDescription.fields = new ArrayList<>();
 
     sourceFileDescription.getFields((Collection<Element>) sourceFileDescription.members)
         .forEach(sourceFileDescription.fields::add);
 
-    TypeElement objectType = processingEnvironment.getElementUtils()
-        .getTypeElement("java.lang.Object");
+    TypeElement objectType = processingEnvironment.getElementUtils().getTypeElement("java.lang.Object");
 
-    List<? extends TypeMirror> supertypes = processingEnvironment.getTypeUtils()
-        .directSupertypes(element.asType());
-    supertypes.forEach(type -> sourceFileDescription.fillSuperTypeFields(type,
-                                                                         processingEnvironment,
-                                                                         objectType));
+    List<? extends TypeMirror> supertypes = processingEnvironment.getTypeUtils().directSupertypes(element.asType());
+    supertypes.forEach(type -> sourceFileDescription.fillSuperTypeFields(type, objectType));
 
     return sourceFileDescription;
   }
 
-  private void fillSuperTypeFields(TypeMirror typeMirror,
-                                   ProcessingEnvironment processingEnvironment,
-                                   TypeElement objectType) {
+  private void fillSuperTypeFields(TypeMirror typeMirror, TypeElement objectType) {
     if (!typeMirror.equals(objectType.asType())) {
       DeclaredType declaredType = (DeclaredType) typeMirror;
       Element superElement = processingEnvironment.getTypeUtils().asElement(typeMirror);
-      List<Element> superMemebers = (List<Element>) processingEnvironment.getElementUtils()
-          .getAllMembers((TypeElement) superElement);
+      List<Element> superMemebers = (List<Element>) processingEnvironment.getElementUtils().getAllMembers((TypeElement) superElement);
       getFields(superMemebers).forEach(fields::add);
 
-      List<? extends TypeMirror> supertypes = processingEnvironment.getTypeUtils()
-          .directSupertypes(declaredType.asElement().asType());
-      supertypes.forEach(type -> fillSuperTypeFields(type, processingEnvironment, objectType));
+      List<? extends TypeMirror> supertypes = processingEnvironment.getTypeUtils().directSupertypes(declaredType.asElement().asType());
+      supertypes.forEach(type -> fillSuperTypeFields(type, objectType));
     }
   }
 
@@ -93,8 +84,7 @@ class SourceFileDescription {
         if (field.getAnnotation(DTO.Exclude.class) != null) continue;
 
         Element fieldType = CollectionTypeUtils.isFieldCollection(field)
-                            ? CollectionTypeUtils.getTypeFromCollectionField(field,
-                                                                             processingEnvironment)
+                            ? CollectionTypeUtils.getTypeFromCollectionField(field, processingEnvironment)
                             : processingEnvironment.getTypeUtils().asElement(field.asType());
 
         if (AnnotationTypeUtils.hasAnnotation(fieldType, "pl.javahello.RemoteEntity") ||
@@ -146,4 +136,7 @@ class SourceFileDescription {
     this.members = members;
   }
 
+  public Element fieldAsElement(Element field) {
+    return processingEnvironment.getTypeUtils().asElement(field.asType());
+  }
 }
