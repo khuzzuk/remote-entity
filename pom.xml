@@ -4,7 +4,7 @@
 
   <groupId>pl.javahello</groupId>
   <artifactId>remote-entity</artifactId>
-  <version>0.0.7-SNAPSHOT</version>
+  <version>0.0.8-SNAPSHOT</version>
   <name>Remote Entity for Spring Data JPA</name>
   <description>Remote entity annotation processor generating code for Spring Data JPA web apps.
   </description>

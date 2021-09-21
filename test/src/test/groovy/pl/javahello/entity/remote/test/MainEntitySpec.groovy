@@ -34,8 +34,10 @@ class MainEntitySpec extends Specification {
         Set<String> fieldNames = Arrays.stream(fields).map({ it.name }).collect(Collectors.toSet())
 
         expect:
-        fields.size() == 19
+        fields.size() == 22
         fieldNames == [
+                'id',
+                'uuid',
                 'byteField',
                 'shortField',
                 'intField',
@@ -43,6 +45,7 @@ class MainEntitySpec extends Specification {
                 'floatField',
                 'doubleField',
                 'stringField',
+                'zonedDateTimeField',
                 'internalField',
                 'internalDataTransferObjectField',
                 'nestedRemoteEntityField',

@@ -6,6 +6,8 @@ import pl.javahello.DTO;
 import pl.javahello.RemoteEntity;
 import pl.javahello.RemoteEntity.SecuredService;
 
+import java.time.ZonedDateTime;
+
 @Data
 @RemoteEntity(transactional = true, requestMapping = "customMapping", stomp = true)
 @SecuredService(allowRead = true)
@@ -17,6 +19,7 @@ public class MainEntity extends BaseClass {
   private float floatField;
   private double doubleField;
   private String stringField;
+  private ZonedDateTime zonedDateTimeField;
   private InternalType internalField;
   private InternalDataTransferObject internalDataTransferObjectField;
   private NestedRemoteEntity nestedRemoteEntityField;

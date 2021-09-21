@@ -4,8 +4,22 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Time;
 import java.sql.Timestamp;
+import java.time.DayOfWeek;
+import java.time.Duration;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.Month;
+import java.time.OffsetDateTime;
+import java.time.OffsetTime;
+import java.time.Period;
+import java.time.Year;
+import java.time.YearMonth;
+import java.time.ZonedDateTime;
 import java.util.Date;
 import java.util.Set;
+import java.util.UUID;
 import javax.annotation.processing.ProcessingEnvironment;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.ElementKind;
@@ -37,10 +51,28 @@ abstract class AbstractFileGenerator {
                                                           Byte[].class.getCanonicalName(),
                                                           String.class.getCanonicalName(),
                                                           String[].class.getCanonicalName(),
+
+                                                          // java.util
                                                           Date.class.getCanonicalName(),
                                                           java.sql.Date.class.getCanonicalName(),
                                                           Timestamp.class.getCanonicalName(),
-                                                          Time.class.getCanonicalName());
+                                                          Time.class.getCanonicalName(),
+                                                          UUID.class.getCanonicalName(),
+
+                                                          // java.time
+                                                          DayOfWeek.class.getCanonicalName(),
+                                                          Month.class.getCanonicalName(),
+                                                          LocalDate.class.getCanonicalName(),
+                                                          LocalDateTime.class.getCanonicalName(),
+                                                          LocalTime.class.getCanonicalName(),
+                                                          ZonedDateTime.class.getCanonicalName(),
+                                                          OffsetDateTime.class.getCanonicalName(),
+                                                          OffsetTime.class.getCanonicalName(),
+                                                          Year.class.getCanonicalName(),
+                                                          YearMonth.class.getCanonicalName(),
+                                                          Instant.class.getCanonicalName(),
+                                                          Period.class.getCanonicalName(),
+                                                          Duration.class.getCanonicalName());
 
   SourceFileDescription sourceFileDescription;
   ProcessingEnvironment processingEnvironment;

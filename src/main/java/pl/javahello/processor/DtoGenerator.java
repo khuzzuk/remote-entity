@@ -56,21 +56,8 @@ class DtoGenerator extends AbstractFileGenerator {
                 .append(sourceFileDescription.getElement().getSimpleName())
                 .append("DTO");
 
-        if (sourceFileDescription.hasField("uuid")) {
-            classDeclaration.append(" extends pl.javahello.ListableDTO");
-            excludedFields.add("uuid");
-            excludedFields.add("id");
-
-            if (sourceFileDescription.hasField("version")) {
-                excludedFields.add("version");
-            }
-        } else if (sourceFileDescription.hasField("id")) {
-            classDeclaration.append(" extends pl.javahello.BaseDTO");
-            excludedFields.add("id");
-
-            if (sourceFileDescription.hasField("version")) {
-                excludedFields.add("version");
-            }
+        if (sourceFileDescription.hasField("version")) {
+            excludedFields.add("version");
         }
 
         classDeclaration.append("{");
