@@ -12,6 +12,8 @@ import java.time.ZonedDateTime;
 @RemoteEntity(transactional = true, requestMapping = "customMapping", stomp = true)
 @SecuredService(allowRead = true)
 public class MainEntity extends BaseClass {
+  private static int excludedField;
+
   private byte byteField;
   private short shortField;
   private @Min(0) int intField;

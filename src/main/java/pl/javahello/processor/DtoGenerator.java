@@ -10,6 +10,7 @@ import java.util.regex.Pattern;
 import javax.annotation.processing.ProcessingEnvironment;
 import javax.lang.model.element.AnnotationMirror;
 import javax.lang.model.element.Element;
+import javax.lang.model.element.Modifier;
 import javax.lang.model.type.TypeMirror;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.Pair;
@@ -40,6 +41,9 @@ class DtoGenerator extends AbstractFileGenerator {
             if (element.getAnnotation(DTO.Exclude.class) != null) {
                 continue;
             }
+            if (element.getModifiers().contains(Modifier.STATIC)) {
+                continue;
+            }
 
             if (!excludedFields.contains(element.getSimpleName().toString())) {
                 writeField(writer, element);
@@ -55,10 +59,6 @@ class DtoGenerator extends AbstractFileGenerator {
                 .append("public class ")
                 .append(sourceFileDescription.getElement().getSimpleName())
                 .append("DTO");
-
-        if (sourceFileDescription.hasField("version")) {
-            excludedFields.add("version");
-        }
 
         classDeclaration.append("{");
 
